@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "SSR for renting Paul Camper",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "dev:build:server": "webpack --config webpack.server.js"
+  },
   "author": "dkvellin@gmail.com",
   "license": "ISC",
   "dependencies": {

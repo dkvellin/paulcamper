@@ -1,7 +1,7 @@
 const express = require('express');
 const React = require('react');
-const { renderToString } = require('react-dom/server');
-const Home = require('./client/components/Home');
+const renderToString = require('react-dom/server').renderToString;
+const Home = require('./client/components/Home').default;
 
 const app = express();
 
@@ -11,5 +11,6 @@ app.get('/', (req, res) => {
 });
 
 app.listen(7777, () => {
+  // eslint-disable-next-line no-console
   console.log('Listening on PORT 7777');
 });
