@@ -1,6 +1,7 @@
 import App from './App';
 import HomePage from './pages/HomePage';
 import CampersListPage from './pages/CampersListPage';
+import CamperDetailsPage from './pages/CamperDetailsPage';
 
 export default [
   {
@@ -14,6 +15,10 @@ export default [
       {
         ...CampersListPage,
         path: '/campers',
+      },
+      {
+        ...CamperDetailsPage,
+        path: '/camper/:id',
       },
     ],
   },

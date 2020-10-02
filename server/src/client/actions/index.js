@@ -10,3 +10,13 @@ export const fetchCampers = () => async (dispatch) => {
     payload: res,
   });
 };
+
+export const FETCH_CAMPER_DETAILS = 'fetch_camper_details';
+export const fetchCamperDetails = (id) => async (dispatch) => {
+  const camperDetailsApiUrl = `https://stage.paulcamper.com/api/inventory/public/campers/${id}/profile`;
+  const res = await axios.get(camperDetailsApiUrl);
+  dispatch({
+    type: FETCH_CAMPER_DETAILS,
+    payload: res,
+  });
+};

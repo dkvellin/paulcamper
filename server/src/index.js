@@ -13,7 +13,7 @@ app.get('*', (req, res) => {
   const store = createStore();
   // eslint-disable-next-line arrow-body-style
   const promises = matchRoutes(Routes, req.path).map(({ route }) => {
-    return route.loadData ? route.loadData(store) : null;
+    return route.loadData ? route.loadData(store, req.path) : null;
   });
 
   Promise.all(promises).then(() => {

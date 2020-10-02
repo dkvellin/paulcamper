@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { fetchCampers } from '../actions';
 
 class CampersList extends Component {
   componentDidMount() {
-    const { fetchCampers: fetchCampersList } = this.props;
-    fetchCampersList();
+    const {
+      fetchCampers: fetchCampersList,
+      match: {
+        params: { id },
+      },
+    } = this.props;
+    fetchCampersList(id);
   }
 
   renderCampers() {
@@ -15,7 +21,9 @@ class CampersList extends Component {
     } = this.props;
     if (Data) {
       return Data.map((camper) => (
-        <li key={camper.Profile.ID}>{camper.Profile.Name}</li>
+        <Link to={`/camper/${camper.Profile.ID}`}>
+          <li key={camper.Profile.ID}>{camper.Profile.Name}</li>
+        </Link>
       ));
     }
     return null;
@@ -47,4 +55,5 @@ export default {
 CampersList.propTypes = {
   fetchCampers: PropTypes.func.isRequired,
   campers: PropTypes.oneOfType([PropTypes.object]).isRequired,
+  match: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };
