@@ -21,8 +21,8 @@ class CampersList extends Component {
     } = this.props;
     if (Data) {
       return Data.map((camper) => (
-        <Link to={`/camper/${camper.Profile.ID}`}>
-          <li key={camper.Profile.ID}>{camper.Profile.Name}</li>
+        <Link key={camper.Profile.ID} to={`/camper/${camper.Profile.ID}`}>
+          <li>{camper.Profile.Name}</li>
         </Link>
       ));
     }

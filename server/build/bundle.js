@@ -434,10 +434,10 @@ var CampersList = function (_Component) {
         return Data.map(function (camper) {
           return _react2.default.createElement(
             _reactRouterDom.Link,
-            { to: '/camper/' + camper.Profile.ID },
+            { key: camper.Profile.ID, to: '/camper/' + camper.Profile.ID },
             _react2.default.createElement(
               'li',
-              { key: camper.Profile.ID },
+              null,
               camper.Profile.Name
             )
           );
