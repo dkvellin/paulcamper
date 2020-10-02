@@ -35,6 +35,11 @@ function mapStateToProps(state) {
   return { campers: state.campers };
 }
 
+function loadData(store) {
+  return store.dispatch(fetchCampers());
+}
+
+export { loadData };
 export default connect(mapStateToProps, { fetchCampers })(CampersList);
 
 CampersList.propTypes = {

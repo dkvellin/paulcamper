@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,7 +73,7 @@ module.exports = require("react");
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-router-dom");
+module.exports = require("react-router-config");
 
 /***/ }),
 /* 2 */
@@ -82,41 +82,36 @@ module.exports = require("react-router-dom");
 "use strict";
 
 
-__webpack_require__(18);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-var _express = __webpack_require__(3);
+var _Home = __webpack_require__(9);
 
-var _express2 = _interopRequireDefault(_express);
+var _Home2 = _interopRequireDefault(_Home);
 
-var _renderer = __webpack_require__(4);
+var _CampersList = __webpack_require__(10);
 
-var _renderer2 = _interopRequireDefault(_renderer);
-
-var _createStore = __webpack_require__(8);
-
-var _createStore2 = _interopRequireDefault(_createStore);
+var _CampersList2 = _interopRequireDefault(_CampersList);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var app = (0, _express2.default)();
-
-app.use(_express2.default.static('public'));
-
-app.get('*', function (req, res) {
-  var store = (0, _createStore2.default)();
-  res.send((0, _renderer2.default)(req, store));
-});
-
-app.listen(7777, function () {
-  // eslint-disable-next-line no-console
-  console.log('Listening on PORT 7777');
-});
+exports.default = [{
+  path: '/',
+  component: _Home2.default,
+  exact: true
+}, {
+  loadData: _CampersList.loadData,
+  path: '/campers',
+  component: _CampersList2.default,
+  exact: true
+}];
 
 /***/ }),
 /* 3 */
 /***/ (function(module, exports) {
 
-module.exports = require("express");
+module.exports = require("react-redux");
 
 /***/ }),
 /* 4 */
@@ -128,41 +123,55 @@ module.exports = require("express");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.fetchCampers = exports.FETCH_CAMPERS = undefined;
 
-var _react = __webpack_require__(0);
+var _axios = __webpack_require__(12);
 
-var _react2 = _interopRequireDefault(_react);
-
-var _server = __webpack_require__(5);
-
-var _reactRouterDom = __webpack_require__(1);
-
-var _reactRedux = __webpack_require__(11);
-
-var _Routes = __webpack_require__(6);
-
-var _Routes2 = _interopRequireDefault(_Routes);
+var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function (req, store) {
-  var content = (0, _server.renderToString)(_react2.default.createElement(
-    _reactRedux.Provider,
-    { store: store },
-    _react2.default.createElement(
-      _reactRouterDom.StaticRouter,
-      { location: req.path, context: {} },
-      _react2.default.createElement(_Routes2.default, null)
-    )
-  ));
-  return '\n    <html>\n      <head></head>\n      <body>\n        <div id="root">' + content + '</div>\n        <script src="bundle.js"></script>\n      </body>\n    </html>\n  ';
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+var FETCH_CAMPERS = exports.FETCH_CAMPERS = 'fetch_campers';
+var fetchCampers = exports.fetchCampers = function fetchCampers() {
+  return function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
+      var res;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _axios2.default.get('https://stage.paulcamper.com/api/inventory/search?center_lat=52.504043&center_lng=13.393236&page_size=24');
+
+            case 2:
+              res = _context.sent;
+
+              dispatch({
+                type: FETCH_CAMPERS,
+                payload: res
+              });
+
+            case 4:
+            case 'end':
+              return _context.stop();
+          }
+        }
+      }, _callee, undefined);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
 };
 
 /***/ }),
 /* 5 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-dom/server");
+module.exports = require("redux");
 
 /***/ }),
 /* 6 */
@@ -171,37 +180,65 @@ module.exports = require("react-dom/server");
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+__webpack_require__(7);
 
-var _react = __webpack_require__(0);
+var _express = __webpack_require__(8);
 
-var _react2 = _interopRequireDefault(_react);
+var _express2 = _interopRequireDefault(_express);
 
-var _reactRouterDom = __webpack_require__(1);
+var _reactRouterConfig = __webpack_require__(1);
 
-var _Home = __webpack_require__(7);
+var _Routes = __webpack_require__(2);
 
-var _Home2 = _interopRequireDefault(_Home);
+var _Routes2 = _interopRequireDefault(_Routes);
 
-var _CampersList = __webpack_require__(16);
+var _renderer = __webpack_require__(13);
 
-var _CampersList2 = _interopRequireDefault(_CampersList);
+var _renderer2 = _interopRequireDefault(_renderer);
+
+var _createStore = __webpack_require__(16);
+
+var _createStore2 = _interopRequireDefault(_createStore);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function () {
-  return _react2.default.createElement(
-    'div',
-    null,
-    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/campers', component: _CampersList2.default })
-  );
-};
+var app = (0, _express2.default)();
+
+app.use(_express2.default.static('public'));
+
+app.get('*', function (req, res) {
+  var store = (0, _createStore2.default)();
+  // eslint-disable-next-line arrow-body-style
+  var promises = (0, _reactRouterConfig.matchRoutes)(_Routes2.default, req.path).map(function (_ref) {
+    var route = _ref.route;
+
+    return route.loadData ? route.loadData(store) : null;
+  });
+
+  Promise.all(promises).then(function () {
+    res.send((0, _renderer2.default)(req, store));
+  });
+});
+
+app.listen(7777, function () {
+  // eslint-disable-next-line no-console
+  console.log('Listening on PORT 7777');
+});
 
 /***/ }),
 /* 7 */
+/***/ (function(module, exports) {
+
+module.exports = require("regenerator-runtime/runtime");
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports) {
+
+module.exports = require("express");
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -239,53 +276,7 @@ var Home = function Home() {
 exports.default = Home;
 
 /***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _redux = __webpack_require__(9);
-
-var _reduxThunk = __webpack_require__(10);
-
-var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
-
-var _reducers = __webpack_require__(12);
-
-var _reducers2 = _interopRequireDefault(_reducers);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function () {
-  var store = (0, _redux.createStore)(_reducers2.default, {}, (0, _redux.applyMiddleware)(_reduxThunk2.default));
-  return store;
-};
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports) {
-
-module.exports = require("redux");
-
-/***/ }),
 /* 10 */
-/***/ (function(module, exports) {
-
-module.exports = require("redux-thunk");
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-redux");
-
-/***/ }),
-/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -294,115 +285,7 @@ module.exports = require("react-redux");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _redux = __webpack_require__(9);
-
-var _campersReducer = __webpack_require__(13);
-
-var _campersReducer2 = _interopRequireDefault(_campersReducer);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = (0, _redux.combineReducers)({
-  campers: _campersReducer2.default
-});
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _actions = __webpack_require__(14);
-
-exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var action = arguments[1];
-
-  switch (action.type) {
-    case _actions.FETCH_CAMPERS:
-      return action.payload.data;
-    default:
-      return state;
-  }
-};
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.fetchCampers = exports.FETCH_CAMPERS = undefined;
-
-var _axios = __webpack_require__(15);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-var FETCH_CAMPERS = exports.FETCH_CAMPERS = 'fetch_campers';
-var fetchCampers = exports.fetchCampers = function fetchCampers() {
-  return function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
-      var res;
-      return regeneratorRuntime.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return _axios2.default.get('https://stage.paulcamper.com/api/inventory/search?center_lat=52.504043&center_lng=13.393236&page_size=24');
-
-            case 2:
-              res = _context.sent;
-
-              console.log('fetch_campers', FETCH_CAMPERS);
-              dispatch({
-                type: FETCH_CAMPERS,
-                payload: res
-              });
-
-            case 5:
-            case 'end':
-              return _context.stop();
-          }
-        }
-      }, _callee, undefined);
-    }));
-
-    return function (_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-};
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports) {
-
-module.exports = require("axios");
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+exports.loadData = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -410,13 +293,13 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(19);
+var _propTypes = __webpack_require__(11);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactRedux = __webpack_require__(11);
+var _reactRedux = __webpack_require__(3);
 
-var _actions = __webpack_require__(14);
+var _actions = __webpack_require__(4);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -481,6 +364,11 @@ function mapStateToProps(state) {
   return { campers: state.campers };
 }
 
+function loadData(store) {
+  return store.dispatch((0, _actions.fetchCampers)());
+}
+
+exports.loadData = loadData;
 exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchCampers: _actions.fetchCampers })(CampersList);
 
 
@@ -490,17 +378,156 @@ CampersList.propTypes = {
 };
 
 /***/ }),
-/* 17 */,
-/* 18 */
-/***/ (function(module, exports) {
-
-module.exports = require("regenerator-runtime/runtime");
-
-/***/ }),
-/* 19 */
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = require("prop-types");
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+module.exports = require("axios");
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _server = __webpack_require__(14);
+
+var _reactRouterDom = __webpack_require__(15);
+
+var _reactRedux = __webpack_require__(3);
+
+var _reactRouterConfig = __webpack_require__(1);
+
+var _Routes = __webpack_require__(2);
+
+var _Routes2 = _interopRequireDefault(_Routes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (req, store) {
+  var content = (0, _server.renderToString)(_react2.default.createElement(
+    _reactRedux.Provider,
+    { store: store },
+    _react2.default.createElement(
+      _reactRouterDom.StaticRouter,
+      { location: req.path, context: {} },
+      _react2.default.createElement(
+        'div',
+        null,
+        (0, _reactRouterConfig.renderRoutes)(_Routes2.default)
+      )
+    )
+  ));
+  return '\n    <html>\n      <head></head>\n      <body>\n        <div id="root">' + content + '</div>\n        <script src="bundle.js"></script>\n      </body>\n    </html>\n  ';
+};
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-dom/server");
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-router-dom");
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _redux = __webpack_require__(5);
+
+var _reduxThunk = __webpack_require__(17);
+
+var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+
+var _reducers = __webpack_require__(18);
+
+var _reducers2 = _interopRequireDefault(_reducers);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function () {
+  var store = (0, _redux.createStore)(_reducers2.default, {}, (0, _redux.applyMiddleware)(_reduxThunk2.default));
+  return store;
+};
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux-thunk");
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _redux = __webpack_require__(5);
+
+var _campersReducer = __webpack_require__(19);
+
+var _campersReducer2 = _interopRequireDefault(_campersReducer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = (0, _redux.combineReducers)({
+  campers: _campersReducer2.default
+});
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _actions = __webpack_require__(4);
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _actions.FETCH_CAMPERS:
+      return action.payload.data;
+    default:
+      return state;
+  }
+};
 
 /***/ })
 /******/ ]);
