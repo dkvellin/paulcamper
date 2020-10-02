@@ -28983,6 +28983,10 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+var _App = __webpack_require__(150);
+
+var _App2 = _interopRequireDefault(_App);
+
 var _HomePage = __webpack_require__(148);
 
 var _HomePage2 = _interopRequireDefault(_HomePage);
@@ -28993,11 +28997,13 @@ var _CampersListPage2 = _interopRequireDefault(_CampersListPage);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = [_extends({}, _HomePage2.default, {
-  path: '/',
-  exact: true
-}), _extends({}, _CampersListPage2.default, {
-  path: '/campers'
+exports.default = [_extends({}, _App2.default, {
+  routes: [_extends({}, _HomePage2.default, {
+    path: '/',
+    exact: true
+  }), _extends({}, _CampersListPage2.default, {
+    path: '/campers'
+  })]
 })];
 
 /***/ }),
@@ -29949,17 +29955,9 @@ var Home = function Home() {
       'div',
       null,
       'I am rendered from Home component'
-    ),
-    _react2.default.createElement(
-      'button',
-      { onClick: function onClick() {
-          return console.log('Onclick was called');
-        } },
-      'Click Me!'
     )
   );
 };
-
 exports.default = {
   component: Home
 };
@@ -30065,6 +30063,52 @@ exports.default = {
 CampersList.propTypes = {
   fetchCampers: _propTypes2.default.func.isRequired,
   campers: _propTypes2.default.oneOfType([_propTypes2.default.object]).isRequired
+};
+
+/***/ }),
+/* 150 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(2);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactRouterConfig = __webpack_require__(118);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var App = function App(_ref) {
+  var route = _ref.route;
+  return _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement(
+      'h1',
+      null,
+      'Root of the App'
+    ),
+    (0, _reactRouterConfig.renderRoutes)(route.routes)
+  );
+};
+
+exports.default = {
+  component: App
+};
+
+
+App.propTypes = {
+  route: _propTypes2.default.oneOfType([_propTypes2.default.object]).isRequired
 };
 
 /***/ })
