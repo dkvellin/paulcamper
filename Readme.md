@@ -6,6 +6,8 @@
 # Running the application
 
 - npm run dev
-- Pages:
-  1. /campers
-  2. /camper/:id
+
+# Pages:
+
+- /campers
+- /camper/:id
