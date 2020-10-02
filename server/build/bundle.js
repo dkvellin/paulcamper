@@ -586,7 +586,7 @@ var Pricing = function Pricing(_ref) {
 };
 
 Pricing.propTypes = {
-  price: _propTypes2.default.string.isRequired
+  price: _propTypes2.default.number.isRequired
 };
 
 exports.default = Pricing;

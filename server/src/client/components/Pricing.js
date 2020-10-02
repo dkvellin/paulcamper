@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const Pricing = ({ price }) => <div>`from {`${price} € / night`}`</div>;
 
 Pricing.propTypes = {
-  price: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
 };
 
 export default Pricing;
