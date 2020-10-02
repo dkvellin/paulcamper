@@ -641,7 +641,7 @@ exports.default = function (req, store) {
       )
     )
   ));
-  return '\n    <html>\n      <head></head>\n      <body>\n        <div id="root">' + content + '</div>\n        <script>\n        window.INITIAL_STATE = ' + (0, _serializeJavascript2.default)(store.getState()) + ' \n        </script>\n        <script src="/bundle.js"></script>\n      </body>\n    </html>\n  ';
+  return '\n    <html>\n      <head>\n        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">\n      </head>\n      <body>\n        <div id="root">' + content + '</div>\n        <script>\n        window.INITIAL_STATE = ' + (0, _serializeJavascript2.default)(store.getState()) + ' \n        </script>\n        <script src="/bundle.js"></script>\n      </body>\n    </html>\n  ';
 };
 
 /***/ }),
