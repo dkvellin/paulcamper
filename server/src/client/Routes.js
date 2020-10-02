@@ -1,16 +1,14 @@
-import Home from './components/Home';
-import CampersList, { loadData } from './components/CampersList';
+import HomePage from './pages/HomePage';
+import CampersListPage from './pages/CampersListPage';
 
 export default [
   {
+    ...HomePage,
     path: '/',
-    component: Home,
     exact: true,
   },
   {
-    loadData,
+    ...CampersListPage,
     path: '/campers',
-    component: CampersList,
-    exact: true,
   },
 ];

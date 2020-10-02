@@ -86,26 +86,24 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Home = __webpack_require__(9);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _Home2 = _interopRequireDefault(_Home);
+var _HomePage = __webpack_require__(20);
 
-var _CampersList = __webpack_require__(10);
+var _HomePage2 = _interopRequireDefault(_HomePage);
 
-var _CampersList2 = _interopRequireDefault(_CampersList);
+var _CampersListPage = __webpack_require__(21);
+
+var _CampersListPage2 = _interopRequireDefault(_CampersListPage);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = [{
+exports.default = [_extends({}, _HomePage2.default, {
   path: '/',
-  component: _Home2.default,
   exact: true
-}, {
-  loadData: _CampersList.loadData,
-  path: '/campers',
-  component: _CampersList2.default,
-  exact: true
-}];
+}), _extends({}, _CampersListPage2.default, {
+  path: '/campers'
+})];
 
 /***/ }),
 /* 3 */
@@ -238,146 +236,8 @@ module.exports = require("regenerator-runtime/runtime");
 module.exports = require("express");
 
 /***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Home = function Home() {
-  return _react2.default.createElement(
-    'div',
-    null,
-    _react2.default.createElement(
-      'div',
-      null,
-      'I am rendered from Home component'
-    ),
-    _react2.default.createElement(
-      'button',
-      { onClick: function onClick() {
-          return console.log('Onclick was called');
-        } },
-      'Click Me!'
-    )
-  );
-};
-
-exports.default = Home;
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.loadData = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(11);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactRedux = __webpack_require__(3);
-
-var _actions = __webpack_require__(4);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var CampersList = function (_Component) {
-  _inherits(CampersList, _Component);
-
-  function CampersList() {
-    _classCallCheck(this, CampersList);
-
-    return _possibleConstructorReturn(this, (CampersList.__proto__ || Object.getPrototypeOf(CampersList)).apply(this, arguments));
-  }
-
-  _createClass(CampersList, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var fetchCampersList = this.props.fetchCampers;
-
-      fetchCampersList();
-    }
-  }, {
-    key: 'renderCampers',
-    value: function renderCampers() {
-      var Data = this.props.campers.Data;
-
-      if (Data) {
-        return Data.map(function (camper) {
-          return _react2.default.createElement(
-            'li',
-            { key: camper.Profile.ID },
-            camper.Profile.Name
-          );
-        });
-      }
-      return null;
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        null,
-        'List of Campers',
-        _react2.default.createElement(
-          'ul',
-          null,
-          this.renderCampers()
-        )
-      );
-    }
-  }]);
-
-  return CampersList;
-}(_react.Component);
-
-function mapStateToProps(state) {
-  return { campers: state.campers };
-}
-
-function loadData(store) {
-  return store.dispatch((0, _actions.fetchCampers)());
-}
-
-exports.loadData = loadData;
-exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchCampers: _actions.fetchCampers })(CampersList);
-
-
-CampersList.propTypes = {
-  fetchCampers: _propTypes2.default.func.isRequired,
-  campers: _propTypes2.default.oneOfType([_propTypes2.default.object]).isRequired
-};
-
-/***/ }),
+/* 9 */,
+/* 10 */,
 /* 11 */
 /***/ (function(module, exports) {
 
@@ -527,6 +387,149 @@ exports.default = function () {
     default:
       return state;
   }
+};
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Home = function Home() {
+  return _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement(
+      'div',
+      null,
+      'I am rendered from Home component'
+    ),
+    _react2.default.createElement(
+      'button',
+      { onClick: function onClick() {
+          return console.log('Onclick was called');
+        } },
+      'Click Me!'
+    )
+  );
+};
+
+exports.default = {
+  component: Home
+};
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(11);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactRedux = __webpack_require__(3);
+
+var _actions = __webpack_require__(4);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CampersList = function (_Component) {
+  _inherits(CampersList, _Component);
+
+  function CampersList() {
+    _classCallCheck(this, CampersList);
+
+    return _possibleConstructorReturn(this, (CampersList.__proto__ || Object.getPrototypeOf(CampersList)).apply(this, arguments));
+  }
+
+  _createClass(CampersList, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var fetchCampersList = this.props.fetchCampers;
+
+      fetchCampersList();
+    }
+  }, {
+    key: 'renderCampers',
+    value: function renderCampers() {
+      var Data = this.props.campers.Data;
+
+      if (Data) {
+        return Data.map(function (camper) {
+          return _react2.default.createElement(
+            'li',
+            { key: camper.Profile.ID },
+            camper.Profile.Name
+          );
+        });
+      }
+      return null;
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        'List of Campers',
+        _react2.default.createElement(
+          'ul',
+          null,
+          this.renderCampers()
+        )
+      );
+    }
+  }]);
+
+  return CampersList;
+}(_react.Component);
+
+function mapStateToProps(state) {
+  return { campers: state.campers };
+}
+
+function loadData(store) {
+  return store.dispatch((0, _actions.fetchCampers)());
+}
+
+exports.default = {
+  loadData: loadData,
+  component: (0, _reactRedux.connect)(mapStateToProps, { fetchCampers: _actions.fetchCampers })(CampersList)
+};
+
+
+CampersList.propTypes = {
+  fetchCampers: _propTypes2.default.func.isRequired,
+  campers: _propTypes2.default.oneOfType([_propTypes2.default.object]).isRequired
 };
 
 /***/ })
