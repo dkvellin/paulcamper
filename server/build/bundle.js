@@ -178,6 +178,12 @@ module.exports = require("react-redux");
 
 /***/ }),
 /* 5 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-router-dom");
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -201,7 +207,7 @@ var _CampersListPage = __webpack_require__(13);
 
 var _CampersListPage2 = _interopRequireDefault(_CampersListPage);
 
-var _CamperDetailsPage = __webpack_require__(15);
+var _CamperDetailsPage = __webpack_require__(19);
 
 var _CamperDetailsPage2 = _interopRequireDefault(_CamperDetailsPage);
 
@@ -217,12 +223,6 @@ exports.default = [_extends({}, _App2.default, {
     path: '/camper/:id'
   })]
 })];
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-router-dom");
 
 /***/ }),
 /* 7 */
@@ -245,15 +245,15 @@ var _express2 = _interopRequireDefault(_express);
 
 var _reactRouterConfig = __webpack_require__(2);
 
-var _Routes = __webpack_require__(5);
+var _Routes = __webpack_require__(6);
 
 var _Routes2 = _interopRequireDefault(_Routes);
 
-var _renderer = __webpack_require__(16);
+var _renderer = __webpack_require__(20);
 
 var _renderer2 = _interopRequireDefault(_renderer);
 
-var _createStore = __webpack_require__(19);
+var _createStore = __webpack_require__(23);
 
 var _createStore2 = _interopRequireDefault(_createStore);
 
@@ -321,12 +321,7 @@ var App = function App(_ref) {
   var route = _ref.route;
   return _react2.default.createElement(
     'div',
-    null,
-    _react2.default.createElement(
-      'h1',
-      null,
-      'Root of the App'
-    ),
+    { className: 'container', style: { padding: '100px 0' } },
     (0, _reactRouterConfig.renderRoutes)(route.routes)
   );
 };
@@ -395,9 +390,21 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactRedux = __webpack_require__(4);
 
-var _reactRouterDom = __webpack_require__(6);
+var _reactRouterDom = __webpack_require__(5);
 
 var _actions = __webpack_require__(1);
+
+var _OwnerInfo = __webpack_require__(15);
+
+var _OwnerInfo2 = _interopRequireDefault(_OwnerInfo);
+
+var _Review = __webpack_require__(16);
+
+var _Review2 = _interopRequireDefault(_Review);
+
+var _Pricing = __webpack_require__(17);
+
+var _Pricing2 = _interopRequireDefault(_Pricing);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -433,12 +440,80 @@ var CampersList = function (_Component) {
       if (Data) {
         return Data.map(function (camper) {
           return _react2.default.createElement(
-            _reactRouterDom.Link,
-            { key: camper.Profile.ID, to: '/camper/' + camper.Profile.ID },
+            'div',
+            { className: 'col-sm', style: { marginBottom: 40 } },
             _react2.default.createElement(
-              'li',
-              null,
-              camper.Profile.Name
+              _reactRouterDom.Link,
+              { key: camper.Profile.ID, to: '/camper/' + camper.Profile.ID },
+              _react2.default.createElement(
+                'div',
+                { className: 'card', style: { width: '350px' } },
+                _react2.default.createElement('img', {
+                  src: 'https://stage.paulcamper.com/images/w_768,c_limit,q_auto' + camper.Profile.Pictures[0].Url + '.jpg',
+                  className: 'card-img-top',
+                  alt: '...',
+                  style: { width: 'auto', height: '250px', objectFit: 'cover' }
+                }),
+                _react2.default.createElement(
+                  'div',
+                  {
+                    className: 'card-body',
+                    style: { minHeight: '220px', color: '#000' }
+                  },
+                  _react2.default.createElement(
+                    'h5',
+                    { className: 'card-title', style: { marginBottom: '5px' } },
+                    camper.Profile.CamperType + ' - ' + camper.Profile.Name
+                  ),
+                  _react2.default.createElement(
+                    'h6',
+                    {
+                      className: 'card-title',
+                      style: {
+                        fontWeight: 'normal',
+                        borderBottom: '1px solid',
+                        paddingBottom: 16
+                      }
+                    },
+                    _react2.default.createElement(
+                      'i',
+                      null,
+                      camper.Profile.City
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'd-flex flex-row' },
+                    _react2.default.createElement(
+                      'div',
+                      { style: { width: '50%', marginBottom: 12 } },
+                      'Rank: ' + camper.Rank
+                    ),
+                    _react2.default.createElement(
+                      'div',
+                      { style: { width: '50%', textAlign: 'right' } },
+                      _react2.default.createElement(_Pricing2.default, { price: camper.PricePerDayFrom })
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'd-flex flex-row' },
+                    _react2.default.createElement(
+                      'div',
+                      { style: { width: '50%' } },
+                      _react2.default.createElement(_OwnerInfo2.default, {
+                        name: camper.Profile.OwnerName,
+                        pic: camper.Profile.OwnerPicture
+                      })
+                    ),
+                    _react2.default.createElement(
+                      'div',
+                      { style: { width: '50%', textAlign: 'right' } },
+                      _react2.default.createElement(_Review2.default, null)
+                    )
+                  )
+                )
+              )
             )
           );
         });
@@ -450,13 +525,8 @@ var CampersList = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        null,
-        'List of Campers',
-        _react2.default.createElement(
-          'ul',
-          null,
-          this.renderCampers()
-        )
+        { className: 'row' },
+        this.renderCampers()
       );
     }
   }]);
@@ -492,6 +562,124 @@ module.exports = require("axios");
 
 /***/ }),
 /* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(3);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var OwnerInfo = function OwnerInfo(_ref) {
+  var name = _ref.name,
+      pic = _ref.pic;
+  return _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement('img', {
+      src: 'https://stage.paulcamper.com/images/w_768,c_limit,q_auto' + pic + '.jpg',
+      alt: '...',
+      style: { maxWidth: '50px', borderRadius: '50px', marginRight: 10 }
+    }),
+    _react2.default.createElement(
+      'span',
+      null,
+      name
+    )
+  );
+};
+
+OwnerInfo.propTypes = {
+  name: _propTypes2.default.string.isRequired,
+  pic: _propTypes2.default.string.isRequired
+};
+
+exports.default = OwnerInfo;
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Review = function Review() {
+  return _react2.default.createElement(
+    "div",
+    null,
+    _react2.default.createElement("span", { className: "fa fa-star checked" }),
+    _react2.default.createElement("span", { className: "fa fa-star checked" }),
+    _react2.default.createElement("span", { className: "fa fa-star checked" }),
+    _react2.default.createElement("span", { className: "fa fa-star" }),
+    _react2.default.createElement("span", { className: "fa fa-star" })
+  );
+};
+
+exports.default = Review;
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(3);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/* eslint-disable react/jsx-one-expression-per-line */
+var Pricing = function Pricing(_ref) {
+  var price = _ref.price;
+  return _react2.default.createElement(
+    'div',
+    null,
+    '`from ',
+    price + ' \u20AC / night',
+    '`'
+  );
+};
+
+Pricing.propTypes = {
+  price: _propTypes2.default.string.isRequired
+};
+
+exports.default = Pricing;
+
+/***/ }),
+/* 18 */,
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -545,11 +733,57 @@ var CamperDetails = function (_Component) {
     value: function renderCamperDetails() {
       var camperData = this.props.camperData;
 
+      var mainImg = camperData.CamperMedia.Pictures[0].Url;
       if (camperData) {
         return _react2.default.createElement(
           'div',
           null,
-          camperData.ID
+          _react2.default.createElement(
+            'div',
+            { className: 'row' },
+            _react2.default.createElement(
+              'div',
+              { className: 'col-md-8' },
+              _react2.default.createElement('img', {
+                className: 'img-fluid',
+                src: mainImg ? 'https://stage.paulcamper.com/images/w_768,c_limit,q_auto' + mainImg + '.jpg' : '#',
+                alt: ''
+              })
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'col-md-4' },
+            _react2.default.createElement(
+              'h3',
+              { className: 'my-3' },
+              'Camper Details'
+            ),
+            _react2.default.createElement(
+              'ul',
+              null,
+              _react2.default.createElement(
+                'li',
+                null,
+                'Type: ' + camperData.CamperBasics.BuildType
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                'Length: ' + camperData.CamperBasics.Length
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                'Width: ' + camperData.CamperBasics.Width
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                'Height: ' + camperData.CamperBasics.Height
+              )
+            )
+          )
         );
       }
       return null;
@@ -560,12 +794,7 @@ var CamperDetails = function (_Component) {
       return _react2.default.createElement(
         'div',
         null,
-        'List of Campers',
-        _react2.default.createElement(
-          'ul',
-          null,
-          this.renderCamperDetails()
-        )
+        this.renderCamperDetails()
       );
     }
   }]);
@@ -595,7 +824,7 @@ CamperDetails.propTypes = {
 };
 
 /***/ }),
-/* 16 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -609,19 +838,19 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(17);
+var _server = __webpack_require__(21);
 
-var _reactRouterDom = __webpack_require__(6);
+var _reactRouterDom = __webpack_require__(5);
 
 var _reactRedux = __webpack_require__(4);
 
 var _reactRouterConfig = __webpack_require__(2);
 
-var _serializeJavascript = __webpack_require__(18);
+var _serializeJavascript = __webpack_require__(22);
 
 var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
 
-var _Routes = __webpack_require__(5);
+var _Routes = __webpack_require__(6);
 
 var _Routes2 = _interopRequireDefault(_Routes);
 
@@ -641,23 +870,23 @@ exports.default = function (req, store) {
       )
     )
   ));
-  return '\n    <html>\n      <head>\n        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">\n      </head>\n      <body>\n        <div id="root">' + content + '</div>\n        <script>\n        window.INITIAL_STATE = ' + (0, _serializeJavascript2.default)(store.getState()) + ' \n        </script>\n        <script src="/bundle.js"></script>\n      </body>\n    </html>\n  ';
+  return '\n    <html>\n      <head>\n        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">\n        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">\n        <style>a:hover{text-decoration: none;}</style>\n      </head>\n      <body>\n        <div id="root">' + content + '</div>\n        <script>\n        window.INITIAL_STATE = ' + (0, _serializeJavascript2.default)(store.getState()) + ' \n        </script>\n        <script src="/bundle.js"></script>\n      </body>\n    </html>\n  ';
 };
 
 /***/ }),
-/* 17 */
+/* 21 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 18 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = require("serialize-javascript");
 
 /***/ }),
-/* 19 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -669,11 +898,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(7);
 
-var _reduxThunk = __webpack_require__(20);
+var _reduxThunk = __webpack_require__(24);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _reducers = __webpack_require__(21);
+var _reducers = __webpack_require__(25);
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -685,13 +914,13 @@ exports.default = function () {
 };
 
 /***/ }),
-/* 20 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("redux-thunk");
 
 /***/ }),
-/* 21 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -703,11 +932,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(7);
 
-var _campersReducer = __webpack_require__(22);
+var _campersReducer = __webpack_require__(26);
 
 var _campersReducer2 = _interopRequireDefault(_campersReducer);
 
-var _camperDetailsReducer = __webpack_require__(23);
+var _camperDetailsReducer = __webpack_require__(27);
 
 var _camperDetailsReducer2 = _interopRequireDefault(_camperDetailsReducer);
 
@@ -719,7 +948,7 @@ exports.default = (0, _redux.combineReducers)({
 });
 
 /***/ }),
-/* 22 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -744,7 +973,7 @@ exports.default = function () {
 };
 
 /***/ }),
-/* 23 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

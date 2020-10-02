@@ -16,19 +16,41 @@ class CamperDetails extends Component {
 
   renderCamperDetails() {
     const { camperData } = this.props;
+    const mainImg = camperData.CamperMedia.Pictures[0].Url;
     if (camperData) {
-      return <div>{camperData.ID}</div>;
+      return (
+        <div>
+          <div className="row">
+            <div className="col-md-8">
+              <img
+                className="img-fluid"
+                src={
+                  mainImg
+                    ? `https://stage.paulcamper.com/images/w_768,c_limit,q_auto${mainImg}.jpg`
+                    : '#'
+                }
+                alt=""
+              />
+            </div>
+          </div>
+
+          <div className="col-md-4">
+            <h3 className="my-3">Camper Details</h3>
+            <ul>
+              <li>{`Type: ${camperData.CamperBasics.BuildType}`}</li>
+              <li>{`Length: ${camperData.CamperBasics.Length}`}</li>
+              <li>{`Width: ${camperData.CamperBasics.Width}`}</li>
+              <li>{`Height: ${camperData.CamperBasics.Height}`}</li>
+            </ul>
+          </div>
+        </div>
+      );
     }
     return null;
   }
 
   render() {
-    return (
-      <div>
-        List of Campers
-        <ul>{this.renderCamperDetails()}</ul>
-      </div>
-    );
+    return <div>{this.renderCamperDetails()}</div>;
   }
 }
 
