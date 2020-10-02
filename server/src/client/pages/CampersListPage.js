@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import { fetchCampers } from '../actions';
 import DetailsCard from '../components/DetailsCard';
 
@@ -13,6 +14,16 @@ class CampersList extends Component {
       },
     } = this.props;
     fetchCampersList(id);
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  head() {
+    return (
+      <Helmet>
+        <title>List of Campers from Paul Camper</title>
+        <meta property="og:title" content="List of Campers from Paul Camper" />
+      </Helmet>
+    );
   }
 
   renderCampers() {
@@ -28,7 +39,12 @@ class CampersList extends Component {
   }
 
   render() {
-    return <div className="row">{this.renderCampers()}</div>;
+    return (
+      <div className="row">
+        {this.head()}
+        {this.renderCampers()}
+      </div>
+    );
   }
 }
 

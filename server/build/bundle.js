@@ -396,6 +396,8 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactRedux = __webpack_require__(4);
 
+var _reactHelmet = __webpack_require__(31);
+
 var _actions = __webpack_require__(1);
 
 var _DetailsCard = __webpack_require__(28);
@@ -428,6 +430,23 @@ var CampersList = function (_Component) {
 
       fetchCampersList(id);
     }
+
+    // eslint-disable-next-line class-methods-use-this
+
+  }, {
+    key: 'head',
+    value: function head() {
+      return _react2.default.createElement(
+        _reactHelmet.Helmet,
+        null,
+        _react2.default.createElement(
+          'title',
+          null,
+          'List of Campers from Paul Camper'
+        ),
+        _react2.default.createElement('meta', { property: 'og:title', content: 'List of Campers from Paul Camper' })
+      );
+    }
   }, {
     key: 'renderCampers',
     value: function renderCampers() {
@@ -446,6 +465,7 @@ var CampersList = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'row' },
+        this.head(),
         this.renderCampers()
       );
     }
@@ -734,6 +754,8 @@ var _serializeJavascript = __webpack_require__(22);
 
 var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
 
+var _reactHelmet = __webpack_require__(31);
+
 var _Routes = __webpack_require__(6);
 
 var _Routes2 = _interopRequireDefault(_Routes);
@@ -754,7 +776,10 @@ exports.default = function (req, store) {
       )
     )
   ));
-  return '\n    <html>\n      <head>\n        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">\n        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">\n        <style>a:hover{text-decoration: none;}</style>\n      </head>\n      <body>\n        <div id="root">' + content + '</div>\n        <script>\n        window.INITIAL_STATE = ' + (0, _serializeJavascript2.default)(store.getState()) + ' \n        </script>\n        <script src="/bundle.js"></script>\n      </body>\n    </html>\n  ';
+
+  var helmet = _reactHelmet.Helmet.renderStatic();
+
+  return '\n    <html>\n      <head>\n        ' + helmet.title.toString() + '\n        ' + helmet.meta.toString() + '\n        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">\n        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">\n        <style>a:hover{text-decoration: none;}</style>\n      </head>\n      <body>\n        <div id="root">' + content + '</div>\n        <script>\n        window.INITIAL_STATE = ' + (0, _serializeJavascript2.default)(store.getState()) + ' \n        </script>\n        <script src="/bundle.js"></script>\n      </body>\n    </html>\n  ';
 };
 
 /***/ }),
@@ -944,6 +969,7 @@ var DetailsCard = function DetailsCard(_ref) {
             { className: 'card-title', style: { marginBottom: '5px' } },
             camper.Profile.CamperType + ' - ' + camper.Profile.Name
           ),
+          _react2.default.createElement('meta', { property: 'og:title', content: camper.Profile.Name }),
           _react2.default.createElement(
             'h6',
             {
@@ -1110,6 +1136,12 @@ Image.propTypes = {
 };
 
 exports.default = Image;
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-helmet");
 
 /***/ })
 /******/ ]);

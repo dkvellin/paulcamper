@@ -22,6 +22,7 @@ const DetailsCard = ({ camper }) => (
           <h5 className="card-title" style={{ marginBottom: '5px' }}>
             {`${camper.Profile.CamperType} - ${camper.Profile.Name}`}
           </h5>
+          <meta property="og:title" content={camper.Profile.Name} />
           <h6
             className="card-title"
             style={{
