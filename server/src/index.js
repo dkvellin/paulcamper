@@ -1,12 +1,14 @@
 import 'regenerator-runtime/runtime';
 import express from 'express';
 import { matchRoutes } from 'react-router-config';
+import compression from 'compression';
 import Routes from './client/Routes';
 import renderer from './helpers/renderer';
 import createStore from './helpers/createStore';
 
 const app = express();
 
+app.use(compression());
 app.use(express.static('public'));
 
 app.get('*', (req, res) => {

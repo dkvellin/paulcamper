@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 module.exports = {
   module: {
     rules: [
@@ -15,4 +16,5 @@ module.exports = {
       },
     ],
   },
+  plugins: [new webpack.optimize.UglifyJsPlugin()],
 };
