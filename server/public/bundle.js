@@ -29182,7 +29182,7 @@ var CampersList = function (_Component) {
 
       if (Data) {
         return Data.map(function (camper) {
-          return _react2.default.createElement(_DetailsCard2.default, { camper: camper });
+          return _react2.default.createElement(_DetailsCard2.default, { key: camper.Profile.ID, camper: camper });
         });
       }
       return null;
@@ -30439,7 +30439,7 @@ var DetailsCard = function DetailsCard(_ref) {
   var camper = _ref.camper;
   return _react2.default.createElement(
     'div',
-    { key: camper.Profile.ID, className: 'col-sm', style: { marginBottom: 40 } },
+    { className: 'col-sm', style: { marginBottom: 40 } },
     _react2.default.createElement(
       _reactRouterDom.Link,
       { to: '/camper/' + camper.Profile.ID },
@@ -30447,7 +30447,7 @@ var DetailsCard = function DetailsCard(_ref) {
         'div',
         { className: 'card', style: { width: '350px' } },
         _react2.default.createElement('img', {
-          src: 'https://stage.paulcamper.com/images/w_768,c_limit,q_auto' + camper.Profile.Pictures[0].Url + '.jpg',
+          src: 'https://stage.paulcamper.com/images/w_768,c_limit,q_auto' + camper.Profile.Pictures[0].CloudinaryID + '.jpg',
           className: 'card-img-top',
           alt: '...',
           style: { width: 'auto', height: '250px', objectFit: 'cover' }

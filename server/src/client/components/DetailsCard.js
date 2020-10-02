@@ -6,11 +6,11 @@ import Review from './Review';
 import Pricing from './Pricing';
 
 const DetailsCard = ({ camper }) => (
-  <div key={camper.Profile.ID} className="col-sm" style={{ marginBottom: 40 }}>
+  <div className="col-sm" style={{ marginBottom: 40 }}>
     <Link to={`/camper/${camper.Profile.ID}`}>
       <div className="card" style={{ width: '350px' }}>
         <img
-          src={`https://stage.paulcamper.com/images/w_768,c_limit,q_auto${camper.Profile.Pictures[0].Url}.jpg`}
+          src={`https://stage.paulcamper.com/images/w_768,c_limit,q_auto${camper.Profile.Pictures[0].CloudinaryID}.jpg`}
           className="card-img-top"
           alt="..."
           style={{ width: 'auto', height: '250px', objectFit: 'cover' }}

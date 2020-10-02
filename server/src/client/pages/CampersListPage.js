@@ -20,7 +20,9 @@ class CampersList extends Component {
       campers: { Data },
     } = this.props;
     if (Data) {
-      return Data.map((camper) => <DetailsCard camper={camper} />);
+      return Data.map((camper) => (
+        <DetailsCard key={camper.Profile.ID} camper={camper} />
+      ));
     }
     return null;
   }

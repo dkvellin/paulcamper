@@ -12,9 +12,17 @@ app.use(express.static('public'));
 app.get('*', (req, res) => {
   const store = createStore();
   // eslint-disable-next-line arrow-body-style
-  const promises = matchRoutes(Routes, req.path).map(({ route }) => {
-    return route.loadData ? route.loadData(store, req.path) : null;
-  });
+  const promises = matchRoutes(Routes, req.path)
+    .map(({ route }) => {
+      return route.loadData ? route.loadData(store, req.path) : null;
+    })
+    .map((promise) => {
+      if (promise) {
+        return new Promise((resolve, reject) => {
+          promise.then(resolve).catch(resolve);
+        });
+      }
+    });
 
   Promise.all(promises).then(() => {
     res.send(renderer(req, store));
