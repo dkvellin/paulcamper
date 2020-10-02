@@ -30574,7 +30574,7 @@ var List = function List(_ref) {
       _react2.default.createElement(
         'li',
         null,
-        'Height: ' + camperData.CamperBasics.Height
+        'Height: ' + camperData.CamperBasics.Hight
       )
     )
   );

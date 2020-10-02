@@ -8,7 +8,7 @@ const List = ({ camperData }) => (
       <li>{`Type: ${camperData.CamperBasics.BuildType}`}</li>
       <li>{`Length: ${camperData.CamperBasics.Length}`}</li>
       <li>{`Width: ${camperData.CamperBasics.Width}`}</li>
-      <li>{`Height: ${camperData.CamperBasics.Height}`}</li>
+      <li>{`Height: ${camperData.CamperBasics.Hight}`}</li>
     </ul>
   </div>
 );
